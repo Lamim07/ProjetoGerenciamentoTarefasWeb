@@ -1,0 +1,11 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Usuários')}"></head>
+<body><header th:replace="~{fragments :: nav('usuarios')}"></header><main class="container">
+  <div class="cabecalho-pagina"><div><p class="sobretitulo">EQUIPE</p><h1>Usuários</h1><p class="muted">Pessoas que podem receber tarefas.</p></div>
+    <a class="botao primario" th:href="@{/cadastro}">+ Cadastrar usuário</a></div>
+  <div th:replace="~{fragments :: flash}"></div>
+  <section class="painel"><div class="tabela-rolagem"><table><thead><tr><th>Nome</th><th>Usuário</th><th>E-mail</th><th>Ações</th></tr></thead>
+    <tbody><tr th:each="u : ${usuarios}"><td th:text="${u.nome}"></td><td th:text="${u.nomeUsuario}"></td><td th:text="${u.email}"></td>
+      <td><div class="acoes" th:if="${u.id == atorId}"><a th:href="@{/usuarios/{id}/editar(id=${u.id})}">Editar</a>
+        <form th:action="@{/usuarios/{id}/excluir(id=${u.id})}" method="post" data-confirm="Excluir sua conta? Esta ação não pode ser desfeita."><button class="link-perigo" type="submit">Excluir</button></form></div></td></tr></tbody></table></div>
+  </section>
+</main><script th:src="@{/js/app.js}"></script></body></html>

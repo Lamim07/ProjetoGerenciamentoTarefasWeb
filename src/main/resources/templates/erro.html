@@ -1,0 +1,5 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Aviso')}"></head>
+<body><header th:replace="~{fragments :: nav('')}"></header><main class="container estreito">
+  <section class="painel padding"><p class="sobretitulo">NÃO FOI POSSÍVEL CONTINUAR</p><h1>Verifique esta ação</h1>
+    <p th:text="${mensagem}"></p><a class="botao primario" th:href="@{/tarefas}">Voltar às tarefas</a></section>
+</main></body></html>

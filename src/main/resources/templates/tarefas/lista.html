@@ -1,0 +1,18 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Tarefas')}"></head>
+<body><header th:replace="~{fragments :: nav('tarefas')}"></header><main class="container">
+  <div class="cabecalho-pagina"><div><p class="sobretitulo">PAINEL DE TRABALHO</p><h1>Minhas tarefas</h1><p class="muted">Acompanhe o que você recebeu e o que atribuiu.</p></div>
+    <a class="botao primario" th:href="@{/tarefas/nova}">+ Nova tarefa</a></div>
+  <div th:replace="~{fragments :: flash}"></div>
+  <div class="abas"><a th:classappend="${filtro != 'criadas'} ? 'selecionada' : ''" th:href="@{/tarefas(filtro='recebidas')}">Recebidas</a>
+    <a th:classappend="${filtro == 'criadas'} ? 'selecionada' : ''" th:href="@{/tarefas(filtro='criadas')}">Criadas por mim</a></div>
+  <section class="painel"><div class="tabela-rolagem"><table><thead><tr><th>Título</th><th>Categoria</th><th>Responsável</th><th>Criador</th><th>Prazo</th><th>Prioridade</th><th>Status</th><th>Ações</th></tr></thead>
+    <tbody><tr th:each="t : ${tarefas}">
+      <td><a class="titulo-tarefa" th:href="@{/tarefas/{id}(id=${t.id})}" th:text="${t.titulo}"></a></td>
+      <td th:text="${t.categoria.nome}"></td><td th:text="${t.responsavel.nome}"></td><td th:text="${t.criador.nome}"></td>
+      <td th:text="${#temporals.format(t.prazo, 'dd/MM/yyyy')}"></td>
+      <td><span class="etiqueta" th:text="${t.prioridade.rotulo}"></span></td><td><span class="etiqueta status" th:text="${t.status.rotulo}"></span></td>
+      <td><a th:href="@{/tarefas/{id}(id=${t.id})}">Abrir</a></td>
+    </tr></tbody></table></div>
+    <div class="vazio" th:if="${#lists.isEmpty(tarefas)}"><strong>Nenhuma tarefa nesta lista.</strong><p>Crie uma tarefa ou escolha outra aba.</p></div>
+  </section>
+</main></body></html>

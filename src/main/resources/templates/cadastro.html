@@ -1,0 +1,16 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Cadastro')}"></head>
+<body class="auth">
+  <section class="auth-marca"><div><span class="marca-grande">✓ TAREFAS</span><h1>Trabalhe com clareza.</h1><p>Uma conta para criar, receber e acompanhar tarefas.</p></div></section>
+  <main class="auth-painel"><div class="auth-conteudo">
+    <p class="sobretitulo">CRIAR CONTA</p><h2>Cadastre-se</h2><div th:replace="~{fragments :: flash}"></div>
+    <form th:action="@{/cadastro}" method="post" class="formulario">
+      <label>Nome completo<input name="nome" maxlength="120" required></label>
+      <label>Nome de usuário<input name="usuario" maxlength="60" required></label>
+      <label>E-mail<input name="email" type="email" maxlength="180" required></label>
+      <label>Senha<input name="senha" type="password" minlength="8" required></label>
+      <label>Confirmar senha<input name="confirmacao" type="password" minlength="8" required></label>
+      <button class="botao primario" type="submit">Criar conta</button>
+    </form>
+    <p class="rodape-auth">Já possui conta? <a th:href="@{/login}">Entrar</a></p>
+  </div></main>
+</body></html>

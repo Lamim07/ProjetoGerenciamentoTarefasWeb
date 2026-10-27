@@ -1,0 +1,16 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Entrar')}"></head>
+<body class="auth">
+  <section class="auth-marca"><div><span class="marca-grande">✓ TAREFAS</span><h1>Organize o trabalho em um só lugar.</h1><p>Crie, atribua e acompanhe tarefas com sua equipe.</p></div></section>
+  <main class="auth-painel"><div class="auth-conteudo">
+    <p class="sobretitulo">BEM-VINDO DE VOLTA</p><h2>Entre na sua conta</h2><p class="muted">Use seu nome de usuário ou e-mail.</p>
+    <div class="alerta erro" th:if="${param.error}">Usuário ou senha inválidos.</div>
+    <div class="alerta sucesso" th:if="${param.logout}">Você saiu da sua conta.</div>
+    <div th:replace="~{fragments :: flash}"></div>
+    <form th:action="@{/login}" method="post" class="formulario">
+      <label>Usuário ou e-mail<input name="username" autocomplete="username" required autofocus></label>
+      <label>Senha<input type="password" name="password" autocomplete="current-password" required></label>
+      <button class="botao primario" type="submit">Entrar</button>
+    </form>
+    <p class="rodape-auth">Ainda não possui conta? <a th:href="@{/cadastro}">Cadastre-se</a></p>
+  </div></main>
+</body></html>

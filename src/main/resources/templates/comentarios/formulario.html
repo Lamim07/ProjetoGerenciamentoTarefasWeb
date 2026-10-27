@@ -1,0 +1,10 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Editar comentário')}"></head>
+<body><header th:replace="~{fragments :: nav('tarefas')}"></header><main class="container estreito">
+  <a class="voltar" th:href="@{/tarefas/{id}(id=${tarefaId})}">← Voltar à tarefa</a>
+  <p class="sobretitulo">CONVERSA</p><h1>Editar comentário</h1>
+  <form class="painel padding formulario" th:action="@{/tarefas/{id}/comentarios(id=${tarefaId})}" method="post">
+    <input type="hidden" name="id" th:value="${comentario.id}">
+    <label>Comentário<textarea name="conteudo" rows="6" maxlength="2000" required th:text="${comentario.conteudo}"></textarea></label>
+    <div class="acoes"><a class="botao secundario" th:href="@{/tarefas/{id}(id=${tarefaId})}">Cancelar</a><button class="botao primario" type="submit">Salvar</button></div>
+  </form>
+</main></body></html>

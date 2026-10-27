@@ -1,0 +1,11 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Editar usuário')}"></head>
+<body><header th:replace="~{fragments :: nav('usuarios')}"></header><main class="container estreito">
+  <a class="voltar" th:href="@{/usuarios}">← Voltar aos usuários</a><p class="sobretitulo">MINHA CONTA</p><h1>Editar perfil</h1>
+  <div th:replace="~{fragments :: flash}"></div>
+  <form class="painel padding formulario" th:action="@{/usuarios/{id}/salvar(id=${usuario.id})}" method="post">
+    <label>Nome<input name="nome" maxlength="120" th:value="${usuario.nome}" required></label>
+    <label>Nome de usuário<input th:value="${usuario.nomeUsuario}" disabled></label>
+    <label>E-mail<input name="email" type="email" maxlength="180" th:value="${usuario.email}" required></label>
+    <div class="acoes"><a class="botao secundario" th:href="@{/usuarios}">Cancelar</a><button class="botao primario" type="submit">Salvar perfil</button></div>
+  </form>
+</main></body></html>

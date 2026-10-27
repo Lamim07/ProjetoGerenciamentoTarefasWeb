@@ -1,0 +1,21 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Formulário de tarefa')}"></head>
+<body><header th:replace="~{fragments :: nav('tarefas')}"></header><main class="container estreito">
+  <a class="voltar" th:href="@{/tarefas}">← Voltar às tarefas</a>
+  <p class="sobretitulo">ORGANIZAÇÃO</p><h1 th:text="${tarefa.id == null} ? 'Nova tarefa' : 'Editar tarefa'"></h1>
+  <div th:replace="~{fragments :: flash}"></div>
+  <form class="painel formulario padding" th:action="@{/tarefas/salvar}" method="post">
+    <input type="hidden" name="id" th:value="${tarefa.id}">
+    <label>Título<input name="titulo" maxlength="180" th:value="${tarefa.titulo}" required></label>
+    <label>Descrição<textarea name="descricao" rows="5" required th:text="${tarefa.descricao}"></textarea></label>
+    <div class="duas-colunas">
+      <label>Responsável<select name="responsavelId" required><option value="">Selecione</option>
+        <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nome}" th:selected="${tarefa.responsavel != null and tarefa.responsavel.id == u.id}"></option></select></label>
+      <label>Categoria<select name="categoriaId" required><option value="">Selecione</option>
+        <option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nome}" th:selected="${tarefa.categoria != null and tarefa.categoria.id == c.id}"></option></select></label>
+      <label>Prazo<input type="date" name="prazo" th:value="${tarefa.prazo}" required></label>
+      <label>Prioridade<select name="prioridade" required><option value="">Selecione</option>
+        <option th:each="p : ${prioridades}" th:value="${p.name()}" th:text="${p.rotulo}" th:selected="${tarefa.prioridade == p}"></option></select></label>
+    </div>
+    <div class="acoes"><a class="botao secundario" th:href="@{/tarefas}">Cancelar</a><button class="botao primario" type="submit">Salvar tarefa</button></div>
+  </form>
+</main></body></html>

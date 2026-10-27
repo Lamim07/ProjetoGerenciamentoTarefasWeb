@@ -1,0 +1,12 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Categoria')}"></head>
+<body><header th:replace="~{fragments :: nav('categorias')}"></header><main class="container estreito">
+  <a class="voltar" th:href="@{/categorias}">← Voltar às categorias</a>
+  <p class="sobretitulo">ORGANIZAÇÃO</p><h1 th:text="${categoria.id == null} ? 'Nova categoria' : 'Editar categoria'"></h1>
+  <div th:replace="~{fragments :: flash}"></div>
+  <form class="painel padding formulario" th:action="@{/categorias/salvar}" method="post">
+    <input type="hidden" name="id" th:value="${categoria.id}">
+    <label>Nome<input name="nome" maxlength="80" th:value="${categoria.nome}" required></label>
+    <label>Descrição<textarea name="descricao" rows="4" maxlength="255" th:text="${categoria.descricao}"></textarea></label>
+    <div class="acoes"><a class="botao secundario" th:href="@{/categorias}">Cancelar</a><button class="botao primario" type="submit">Salvar categoria</button></div>
+  </form>
+</main></body></html>

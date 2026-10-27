@@ -1,0 +1,11 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Categorias')}"></head>
+<body><header th:replace="~{fragments :: nav('categorias')}"></header><main class="container">
+  <div class="cabecalho-pagina"><div><p class="sobretitulo">ORGANIZAÇÃO</p><h1>Categorias</h1><p class="muted">Organize as tarefas por assunto.</p></div>
+    <a class="botao primario" th:href="@{/categorias/nova}">+ Nova categoria</a></div>
+  <div th:replace="~{fragments :: flash}"></div>
+  <section class="painel"><div class="tabela-rolagem"><table><thead><tr><th>Nome</th><th>Descrição</th><th>Ações</th></tr></thead>
+    <tbody><tr th:each="c : ${categorias}"><td><strong th:text="${c.nome}"></strong></td><td th:text="${c.descricao ?: '—'}"></td>
+      <td><div class="acoes"><a th:href="@{/categorias/{id}/editar(id=${c.id})}">Editar</a>
+        <form th:action="@{/categorias/{id}/excluir(id=${c.id})}" method="post" data-confirm="Excluir categoria?"><button class="link-perigo" type="submit">Excluir</button></form></div></td></tr></tbody></table></div>
+  </section>
+</main><script th:src="@{/js/app.js}"></script></body></html>

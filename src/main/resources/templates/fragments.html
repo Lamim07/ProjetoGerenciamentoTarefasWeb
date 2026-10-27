@@ -1,0 +1,21 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo)">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title th:text="${titulo} + ' · Tarefas'">Tarefas</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topo" th:fragment="nav(ativa)">
+  <a class="marca" th:href="@{/tarefas}"><span class="marca-icone">✓</span> TAREFAS</a>
+  <nav aria-label="Principal">
+    <a th:classappend="${ativa == 'tarefas'} ? 'ativo' : ''" th:href="@{/tarefas}">Tarefas</a>
+    <a th:classappend="${ativa == 'categorias'} ? 'ativo' : ''" th:href="@{/categorias}">Categorias</a>
+    <a th:classappend="${ativa == 'usuarios'} ? 'ativo' : ''" th:href="@{/usuarios}">Usuários</a>
+  </nav>
+  <form th:action="@{/logout}" method="post"><button class="link-sair" type="submit">Sair</button></form>
+</header>
+<div th:fragment="flash" class="avisos">
+  <div class="alerta sucesso" th:if="${sucesso}" th:text="${sucesso}"></div>
+  <div class="alerta erro" th:if="${erro}" th:text="${erro}"></div>
+</div>
+</body></html>

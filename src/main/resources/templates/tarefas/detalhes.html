@@ -1,0 +1,31 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments :: head('Detalhes da tarefa')}"></head>
+<body><header th:replace="~{fragments :: nav('tarefas')}"></header><main class="container">
+  <a class="voltar" th:href="@{/tarefas}">← Voltar às tarefas</a><div th:replace="~{fragments :: flash}"></div>
+  <div class="cabecalho-pagina"><div><p class="sobretitulo">DETALHES DA TAREFA</p><h1 th:text="${tarefa.titulo}"></h1>
+    <p class="muted" th:text="|Criada por ${tarefa.criador.nome} · Responsável: ${tarefa.responsavel.nome}|"></p></div>
+    <a class="botao secundario" th:if="${tarefa.criador.id == atorId}" th:href="@{/tarefas/{id}/editar(id=${tarefa.id})}">Editar tarefa</a></div>
+  <div class="grade-detalhes">
+    <section class="painel padding"><h2>Sobre</h2><p class="texto-longo" th:text="${tarefa.descricao}"></p>
+      <dl class="metadados"><div><dt>Categoria</dt><dd th:text="${tarefa.categoria.nome}"></dd></div>
+        <div><dt>Prazo</dt><dd th:text="${#temporals.format(tarefa.prazo, 'dd/MM/yyyy')}"></dd></div>
+        <div><dt>Prioridade</dt><dd th:text="${tarefa.prioridade.rotulo}"></dd></div>
+        <div><dt>Status</dt><dd th:text="${tarefa.status.rotulo}"></dd></div></dl>
+      <form th:if="${tarefa.responsavel.id == atorId}" th:action="@{/tarefas/{id}/status(id=${tarefa.id})}" method="post" class="formulario">
+        <label>Alterar status<select name="status"><option th:each="s : ${statusPossiveis}" th:value="${s.name()}" th:text="${s.rotulo}" th:selected="${tarefa.status == s}"></option></select></label>
+        <button class="botao primario" type="submit">Atualizar status</button></form>
+      <form th:if="${tarefa.criador.id == atorId}" th:action="@{/tarefas/{id}/excluir(id=${tarefa.id})}" method="post" data-confirm="Excluir esta tarefa e seus comentários?">
+        <button class="botao perigo" type="submit">Excluir tarefa</button></form>
+    </section>
+    <section class="painel padding"><h2>Comentários</h2>
+      <div class="comentario" th:each="c : ${comentarios}"><div class="comentario-topo"><strong th:text="${c.autor.nome}"></strong>
+        <span class="muted" th:text="${#temporals.format(c.criadoEm, 'dd/MM/yyyy HH:mm')}"></span></div>
+        <p class="texto-longo" th:text="${c.conteudo}"></p>
+        <div class="acoes" th:if="${c.autor.id == atorId}"><a th:href="@{/tarefas/{t}/comentarios/{id}/editar(t=${tarefa.id},id=${c.id})}">Editar</a>
+          <form th:action="@{/tarefas/{t}/comentarios/{id}/excluir(t=${tarefa.id},id=${c.id})}" method="post" data-confirm="Excluir comentário?"><button class="link-perigo" type="submit">Excluir</button></form></div></div>
+      <p class="muted" th:if="${#lists.isEmpty(comentarios)}">Ainda não há comentários.</p>
+      <form th:action="@{/tarefas/{id}/comentarios(id=${tarefa.id})}" method="post" class="formulario">
+        <label>Novo comentário<textarea name="conteudo" rows="3" maxlength="2000" required></textarea></label>
+        <button class="botao primario" type="submit">Publicar</button></form>
+    </section>
+  </div>
+</main><script th:src="@{/js/app.js}"></script></body></html>
