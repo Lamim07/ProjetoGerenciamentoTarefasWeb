@@ -20,11 +20,15 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 
 ## Arquitetura MVC
 
-`model` contém as entidades JPA; `repository` contém as interfaces Spring Data; `service` concentra regras e permissões; `controller` recebe requisições e chama **somente os serviços**; `templates` e `static` formam a camada View. `spring.jpa.hibernate.ddl-auto=validate` valida o esquema existente e não altera tabelas.
+`model` contém as entidades JPA; `repository` contém as interfaces Spring Data; `service` concentra regras e permissões; `controller` recebe requisições e chama **somente os serviços**; `templates` e `static` formam a camada View. `config/ConnectionFactory.java` cria o `DataSource` que o Spring Data usa, com parâmetros externos. `spring.jpa.hibernate.ddl-auto=validate` valida o esquema existente e não altera tabelas.
 
 ## Banco e execução
 
-É necessário ter Java 17+ e o banco SQL Server `GerenciamentoTarefas` já criado com as quatro tabelas. O Maven Wrapper (`mvnw.cmd`) baixa o Maven automaticamente na primeira execução. Configure as variáveis de ambiente sem salvar a senha no repositório:
+É necessário ter Java 17+ e o banco SQL Server `GerenciamentoTarefas` já criado com as quatro tabelas. O Maven Wrapper (`mvnw.cmd`) baixa o Maven automaticamente na primeira execução.
+
+**Nesta máquina**, abra `iniciar-web.cmd` com duplo clique. O script lê a credencial local protegida em `credenciais-sql.dat`, configura a conexão e inicia a aplicação. Esse arquivo é ignorado pelo Git e só pode ser lido pela conta Windows que o criou. Mantenha a janela do script aberta enquanto usar o sistema.
+
+Em outra máquina, configure as variáveis de ambiente sem salvar a senha no repositório:
 
 ```powershell
 $env:TAREFAS_DB_URL = 'jdbc:sqlserver://127.0.0.1:1433;databaseName=GerenciamentoTarefas;encrypt=true;trustServerCertificate=true'

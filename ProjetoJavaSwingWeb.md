@@ -1,6 +1,6 @@
 # Continuidade do projeto — Gerenciador de Tarefas Web
 
-> Atualizado em 30/10/2026. Este arquivo é um resumo para retomar o trabalho em outra IA.
+> Atualizado em 03/11/2026. Este arquivo é um resumo para retomar o trabalho em outra IA.
 
 ## 1. Objetivo e localização
 
@@ -14,9 +14,9 @@ O trabalho acadêmico é um **sistema web de gerenciamento de tarefas** feito co
 ## 2. Estado atual verificado
 
 - Commit de implementação: `40ee444 feat: criar gerenciador de tarefas web com Spring MVC`. Este handoff foi acrescentado em um commit de documentação posterior.
-- `git status --porcelain` estava vazio em 30/10/2026, antes da criação deste arquivo.
+- Uma atualização posterior adicionou `config/ConnectionFactory.java`, `iniciar-web.cmd` e `iniciar-web.ps1` para simplificar a conexão local.
 - O pacote executável `target\gerenciamento-tarefas-web-1.0.0.jar` foi gerado com sucesso em 27/10/2026. A pasta `target/` é ignorada pelo Git.
-- Em 30/10/2026, `http://localhost:8080/login` **não estava respondendo**; o servidor de visualização iniciado anteriormente não permanece ativo. Isso não indica falha de compilação.
+- Em 03/11/2026, o novo iniciador conectou ao SQL Server, o Spring iniciou na porta 8080 e a tela de login respondeu HTTP 200. O servidor de teste foi encerrado depois da validação.
 - Este handoff deve acompanhar o projeto no Git para estar disponível após a publicação.
 
 ## 3. Tecnologias e estrutura
@@ -28,6 +28,7 @@ O trabalho acadêmico é um **sistema web de gerenciamento de tarefas** feito co
 - `service`: regras, validações, operações e permissões.
 - `controller`: rotas HTTP; **controllers chamam serviços, não repositories**.
 - `security`: login, logout, proteção de rotas, CSRF e `SenhaLegadaEncoder`.
+- `config/ConnectionFactory.java`: cria o `HikariDataSource` usado pelo Spring Data JPA. URL, usuário e senha continuam fora do código Java.
 - `src/main/resources/templates`: páginas Thymeleaf; `static/css/app.css` e `static/js/app.js`: apresentação.
 - `pom.xml`, `mvnw.cmd`, `.mvn/wrapper`: build. `.gitignore` exclui `target/`, credenciais e arquivos locais.
 
@@ -44,7 +45,7 @@ Banco SQL Server: `GerenciamentoTarefas`; esquema `dbo`.
 
 O banco foi criado durante o trabalho desktop. O projeto web usa `spring.jpa.hibernate.ddl-auto=validate`: **valida o esquema existente e não cria/altera tabelas**. Não há scripts SQL neste novo repositório. Para executar em outra máquina, é necessário provisionar o mesmo esquema; o MER e os campos estão documentados em `docs/modelagem.md`.
 
-O hash PBKDF2 das senhas existentes no Swing é aceito pelo `SenhaLegadaEncoder`; novas contas web também usam esse formato. **Não colocar usuário/senha SQL nem arquivo de credenciais no Git.**
+O hash PBKDF2 das senhas existentes no Swing é aceito pelo `SenhaLegadaEncoder`; novas contas web também usam esse formato. O arquivo local `credenciais-sql.dat` é protegido pela conta Windows e ignorado pelo Git. **Não colocar usuário/senha SQL nem arquivo de credenciais no Git.**
 
 ## 5. Funcionalidades e permissões
 
@@ -67,7 +68,9 @@ O hash PBKDF2 das senhas existentes no Swing é aceito pelo `SenhaLegadaEncoder`
 
 Pré-requisitos: Java 17+, SQL Server em `127.0.0.1:1433`, banco `GerenciamentoTarefas` com as quatro tabelas, autenticação SQL habilitada. O Maven Wrapper baixa Maven na primeira execução.
 
-No PowerShell, dentro de `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefasWeb`:
+Nesta máquina, **duplo clique em `iniciar-web.cmd`**. Ele chama `iniciar-web.ps1`, lê a credencial local protegida, define a conexão e executa `mvnw.cmd spring-boot:run`. Mantenha a janela aberta durante o uso.
+
+Em outra máquina, no PowerShell dentro de `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefasWeb`:
 
 ```powershell
 $env:TAREFAS_DB_URL = 'jdbc:sqlserver://127.0.0.1:1433;databaseName=GerenciamentoTarefas;encrypt=true;trustServerCertificate=true'
@@ -86,10 +89,11 @@ Depois, abrir `http://localhost:8080/login`. É possível usar uma conta já cad
 - Verificação HTTP: login e cadastro carregaram; rota `/tarefas` redirecionou visitante não autenticado para login.
 - Fluxo ponta a ponta com dados temporários: cadastro, login, criação/listagem/edição/exclusão de categoria, tarefa e comentário; alteração de status; edição de perfil. Fluxos passaram. Registros temporários foram removidos do banco.
 - O protótipo HTML foi renderizado e revisado visualmente. A última compilação da versão movida para o nome atual também passou.
+- Em 03/11/2026, `.\mvnw.cmd test` passou após adicionar a ConnectionFactory; o novo script iniciou o Spring e a tela de login respondeu HTTP 200.
 
 ## 9. Próximas ações possíveis
 
-1. Se o usuário quiser visualizar novamente, iniciar o servidor com as variáveis de ambiente locais e abrir `http://localhost:8080/login`.
+1. Se o usuário quiser visualizar novamente nesta máquina, dar duplo clique em `iniciar-web.cmd` e abrir `http://localhost:8080/login`.
 2. Revisar manualmente as telas no navegador com a conta do usuário e corrigir qualquer detalhe visual/funcional encontrado.
 3. Publicar **este** repositório no GitHub quando o usuário desejar e acrescentar a URL ao `README.md`.
 4. Manter este arquivo atualizado no Git. Não versionar `target/` ou credenciais.
