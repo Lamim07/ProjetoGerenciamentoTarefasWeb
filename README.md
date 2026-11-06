@@ -10,7 +10,14 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 - **Diagrama MER:** [abrir arquivo Mermaid](diagrama-mer.mmd).
 - **Explicação dos modelos:** [abrir documentação](documentacao/modelagem.md).
 
-![Prévia dos protótipos web](Mockups/visao-geral.png)
+### Telas em imagens
+
+- [Login](Mockups/01-login.png)
+- [Listagem de tarefas](Mockups/02-listagem-tarefas.png)
+- [Cadastro e edição de tarefa](Mockups/03-cadastro-edicao-tarefa.png)
+- [Detalhes e comentários](Mockups/04-detalhes-comentarios.png)
+
+[Visão geral original](Mockups/visao-geral.png)
 
 [Avaliação dos requisitos do professor](documentacao/avaliacao-requisitos.md).
 
