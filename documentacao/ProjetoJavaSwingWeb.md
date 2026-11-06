@@ -1,21 +1,21 @@
 # Continuidade do projeto — Gerenciador de Tarefas Web
 
-> Atualizado em 03/11/2026. Este arquivo é um resumo para retomar o trabalho em outra IA.
+> Atualizado em 06/11/2026. Este arquivo é um resumo para retomar o trabalho em outra IA.
 
 ## 1. Objetivo e localização
 
 O trabalho acadêmico é um **sistema web de gerenciamento de tarefas** feito com Spring MVC, Thymeleaf, Spring Data JPA e arquitetura MVC. Ele deve usar banco relacional, manipular pelo menos quatro tabelas e oferecer telas de cadastro, edição, exclusão e listagem.
 
-- **Projeto web principal:** `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefasWeb`
+- **Projeto web principal:** `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefasWeb`; módulo Java em `Projeto`.
 - **Projeto desktop anterior (Java Swing), separado:** `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefas\projeto`
-- O projeto web possui **repositório Git próprio**. A pasta antiga `C:\MEUS PROJETOS\GerenciadorTarefasWeb` foi renomeada/movida para o caminho principal acima.
+- A raiz contém `documentacao`, `Mockups`, `Projeto` e os diagramas Mermaid UML/MER. O projeto web possui **repositório Git próprio**. A pasta antiga `C:\MEUS PROJETOS\GerenciadorTarefasWeb` foi renomeada/movida para o caminho principal acima.
 - **GitHub:** o usuário decidiu publicar por conta própria. Ainda não há remote configurado nem URL pública no README.
 
 ## 2. Estado atual verificado
 
 - Commit de implementação: `40ee444 feat: criar gerenciador de tarefas web com Spring MVC`. Este handoff foi acrescentado em um commit de documentação posterior.
 - Uma atualização posterior adicionou `config/ConnectionFactory.java`, `iniciar-web.cmd` e `iniciar-web.ps1` para simplificar a conexão local.
-- O pacote executável `target\gerenciamento-tarefas-web-1.0.0.jar` foi gerado com sucesso em 27/10/2026. A pasta `target/` é ignorada pelo Git.
+- O pacote executável `Projeto\target\gerenciamento-tarefas-web-1.0.0.jar` foi gerado com sucesso em 27/10/2026. A pasta `target/` é ignorada pelo Git.
 - Em 03/11/2026, o novo iniciador conectou ao SQL Server, o Spring iniciou na porta 8080 e a tela de login respondeu HTTP 200. O servidor de teste foi encerrado depois da validação.
 - Este handoff deve acompanhar o projeto no Git para estar disponível após a publicação.
 
@@ -43,7 +43,7 @@ Banco SQL Server: `GerenciamentoTarefas`; esquema `dbo`.
 | `tarefas` | Título, descrição, prazo, prioridade, status, data de criação | `criador_id`, `responsavel_id`, `categoria_id` |
 | `comentarios_tarefa` | Conversa vinculada à tarefa | `tarefa_id`, `autor_id` |
 
-O banco foi criado durante o trabalho desktop. O projeto web usa `spring.jpa.hibernate.ddl-auto=validate`: **valida o esquema existente e não cria/altera tabelas**. Não há scripts SQL neste novo repositório. Para executar em outra máquina, é necessário provisionar o mesmo esquema; o MER e os campos estão documentados em `docs/modelagem.md`.
+O banco foi criado durante o trabalho desktop. O projeto web usa `spring.jpa.hibernate.ddl-auto=validate`: **valida o esquema existente e não cria/altera tabelas**. Não há scripts SQL neste novo repositório. Para executar em outra máquina, é necessário provisionar o mesmo esquema; o MER e os campos estão documentados em `documentacao/modelagem.md`.
 
 O hash PBKDF2 das senhas existentes no Swing é aceito pelo `SenhaLegadaEncoder`; novas contas web também usam esse formato. O arquivo local `credenciais-sql.dat` é protegido pela conta Windows e ignorado pelo Git. **Não colocar usuário/senha SQL nem arquivo de credenciais no Git.**
 
@@ -59,18 +59,18 @@ O hash PBKDF2 das senhas existentes no Swing é aceito pelo `SenhaLegadaEncoder`
 
 ## 6. Protótipos e diagramas
 
-- `docs/prototipos/index.html`: galeria HTML com seis mockups web.
-- `docs/prototipos/visao-geral.png`: prévia incluída no README.
-- `docs/modelagem.md`: diagrama de classes `classDiagram`, MER `erDiagram`, suposições e matriz tela/entidade/tabela.
+- `Mockups/index.html`: galeria HTML com seis mockups web.
+- `Mockups/visao-geral.png`: prévia incluída no README.
+- `documentacao/modelagem.md`: diagrama de classes `classDiagram`, MER `erDiagram`, suposições e matriz tela/entidade/tabela.
 - `README.md`: resumo para entrega, links para protótipos/diagramas e instruções de execução. A seção GitHub aguarda a URL após a publicação pelo usuário.
 
 ## 7. Compilar e executar no Windows
 
 Pré-requisitos: Java 17+, SQL Server em `127.0.0.1:1433`, banco `GerenciamentoTarefas` com as quatro tabelas, autenticação SQL habilitada. O Maven Wrapper baixa Maven na primeira execução.
 
-Nesta máquina, **duplo clique em `iniciar-web.cmd`**. Ele chama `iniciar-web.ps1`, lê a credencial local protegida, define a conexão e executa `mvnw.cmd spring-boot:run`. Mantenha a janela aberta durante o uso.
+Nesta máquina, **duplo clique em `iniciar-web.cmd` na raiz**. Ele chama `iniciar-web.ps1`, lê a credencial local protegida, define a conexão e executa `mvnw.cmd spring-boot:run`. Mantenha a janela aberta durante o uso.
 
-Em outra máquina, no PowerShell dentro de `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefasWeb`:
+Em outra máquina, no PowerShell dentro de `C:\MEUS PROJETOS\ProjetoGerenciamentoTarefasWeb\Projeto`:
 
 ```powershell
 $env:TAREFAS_DB_URL = 'jdbc:sqlserver://127.0.0.1:1433;databaseName=GerenciamentoTarefas;encrypt=true;trustServerCertificate=true'

@@ -1,0 +1,46 @@
+classDiagram
+class Usuario {
+    +Long id
+    +String nome
+    +String nomeUsuario
+    +String email
+    -String senhaHash
+  }
+  class Categoria {
+    +Long id
+    +String nome
+    +String descricao
+  }
+  class Tarefa {
+    +Long id
+    +String titulo
+    +String descricao
+    +LocalDate prazo
+    +PrioridadeTarefa prioridade
+    +StatusTarefa status
+    +LocalDateTime criadaEm
+  }
+  class ComentarioTarefa {
+    +Long id
+    +String conteudo
+    +LocalDateTime criadoEm
+  }
+  class PrioridadeTarefa {
+    <<enumeration>>
+    BAIXA
+    MEDIA
+    ALTA
+  }
+  class StatusTarefa {
+    <<enumeration>>
+    PENDENTE
+    EM_ANDAMENTO
+    CONCLUIDA
+  }
+  Usuario "1" <-- "0..*" Tarefa : cria
+  Usuario "1" <-- "0..*" Tarefa : recebe
+  Categoria "1" <-- "0..*" Tarefa : classifica
+  Tarefa "1" <-- "0..*" ComentarioTarefa : possui
+  Usuario "1" <-- "0..*" ComentarioTarefa : escreve
+  Tarefa --> PrioridadeTarefa
+  Tarefa --> StatusTarefa

@@ -8,7 +8,7 @@ Para o CRUD web, usuários podem editar ou excluir **a própria conta**; uma con
 
 ## Protótipos
 
-Veja a [galeria de protótipos web](prototipos/index.html): login, listagem, formulário de tarefa, detalhes/comentários, categorias e usuários. As páginas Thymeleaf implementam as mesmas estruturas em `src/main/resources/templates`.
+Veja a [galeria de protótipos web](../Mockups/index.html): login, listagem, formulário de tarefa, detalhes/comentários, categorias e usuários. As páginas Thymeleaf implementam as mesmas estruturas em `../Projeto/src/main/resources/templates`.
 
 ## Diagrama de classes
 

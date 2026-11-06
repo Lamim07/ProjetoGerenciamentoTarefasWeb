@@ -5,10 +5,14 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 ## Entrega da 1ª etapa
 
 - **Tema:** cadastro, atribuição e gerenciamento de tarefas.
-- **Protótipos de tela:** [abrir galeria HTML](docs/prototipos/index.html).
-- **Diagrama de classes UML e MER:** [abrir modelagem com Mermaid](docs/modelagem.md).
+- **Protótipos de tela:** [abrir galeria HTML](Mockups/index.html).
+- **Diagrama de classes UML:** [abrir arquivo Mermaid](diagrama-classes-uml.mmd).
+- **Diagrama MER:** [abrir arquivo Mermaid](diagrama-mer.mmd).
+- **Explicação dos modelos:** [abrir documentação](documentacao/modelagem.md).
 
-![Prévia dos protótipos web](docs/prototipos/visao-geral.png)
+![Prévia dos protótipos web](Mockups/visao-geral.png)
+
+[Avaliação dos requisitos do professor](documentacao/avaliacao-requisitos.md).
 
 ## Funcionalidades
 
@@ -20,11 +24,11 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 
 ## Arquitetura MVC
 
-`model` contém as entidades JPA; `repository` contém as interfaces Spring Data; `service` concentra regras e permissões; `controller` recebe requisições e chama **somente os serviços**; `templates` e `static` formam a camada View. `config/ConnectionFactory.java` cria o `DataSource` que o Spring Data usa, com parâmetros externos. `spring.jpa.hibernate.ddl-auto=validate` valida o esquema existente e não altera tabelas.
+`Projeto/src/main/java/br/edu/tarefas/web/model` contém as entidades JPA; `repository` contém as interfaces Spring Data; `service` concentra regras e permissões; `controller` recebe requisições e chama **somente os serviços**; `templates` e `static` formam a camada View. `Projeto/src/main/java/br/edu/tarefas/web/config/ConnectionFactory.java` cria o `DataSource` que o Spring Data usa, com parâmetros externos. `spring.jpa.hibernate.ddl-auto=validate` valida o esquema existente e não altera tabelas.
 
 ## Banco e execução
 
-É necessário ter Java 17+ e o banco SQL Server `GerenciamentoTarefas` já criado com as quatro tabelas. O Maven Wrapper (`mvnw.cmd`) baixa o Maven automaticamente na primeira execução.
+É necessário ter Java 17+ e o banco SQL Server `GerenciamentoTarefas` já criado com as quatro tabelas. O Maven Wrapper (`Projeto/mvnw.cmd`) baixa o Maven automaticamente na primeira execução.
 
 **Nesta máquina**, abra `iniciar-web.cmd` com duplo clique. O script lê a credencial local protegida em `credenciais-sql.dat`, configura a conexão e inicia a aplicação. Esse arquivo é ignorado pelo Git e só pode ser lido pela conta Windows que o criou. Mantenha a janela do script aberta enquanto usar o sistema.
 
@@ -34,6 +38,7 @@ Em outra máquina, configure as variáveis de ambiente sem salvar a senha no rep
 $env:TAREFAS_DB_URL = 'jdbc:sqlserver://127.0.0.1:1433;databaseName=GerenciamentoTarefas;encrypt=true;trustServerCertificate=true'
 $env:TAREFAS_DB_USER = 'seu_usuario_sql'
 $env:TAREFAS_DB_PASSWORD = 'sua_senha_sql'
+cd Projeto
 .\mvnw.cmd spring-boot:run
 ```
 
@@ -42,6 +47,7 @@ Abra `http://localhost:8080`. O SQL Server deve aceitar autenticação SQL e con
 ## Testes
 
 ```powershell
+cd Projeto
 .\mvnw.cmd test
 ```
 

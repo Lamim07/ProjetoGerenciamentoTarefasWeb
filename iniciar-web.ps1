@@ -14,7 +14,7 @@ try {
 
     Write-Host 'Iniciando o Gerenciador de Tarefas Web...'
     Write-Host 'Quando aparecer "Tomcat started", abra http://localhost:8080/login'
-    & (Join-Path $base 'mvnw.cmd') spring-boot:run
+    & (Join-Path $base 'Projeto\mvnw.cmd') -f (Join-Path $base 'Projeto\pom.xml') spring-boot:run
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao iniciar a aplicação.' }
 } catch {
     Write-Host ('Erro: ' + $_.Exception.Message) -ForegroundColor Red
