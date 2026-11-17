@@ -5,3 +5,6 @@ target/
 .env
 credenciais*
 *.log
+
+**/application-local.properties
+.env.*

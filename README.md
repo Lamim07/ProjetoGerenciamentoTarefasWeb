@@ -21,6 +21,20 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 
 [Avaliação dos requisitos do professor](documentacao/avaliacao-requisitos.md).
 
+## Versão com IA — branch `codex/genai`
+
+Esta branch mantém todas as funções do gerenciador de tarefas e acrescenta um assistente com Spring AI. Na tela de detalhes de uma tarefa, usuários envolvidos podem **resumir a tarefa** ou **receber um plano de execução**. As respostas aparecem na interface, não são gravadas no banco e não alteram a tarefa. O assistente recebe apenas título, descrição, prazo, prioridade e status da tarefa acessível ao usuário.
+
+A aplicação continua funcionando sem chave de API; nesse caso, os botões da IA ficam indisponíveis. Para ativá-los, configure as variáveis somente no ambiente local antes de iniciar:
+
+```powershell
+$env:OPENAI_API_KEY = 'SUA_CHAVE_LOCAL'
+$env:TAREFAS_AI_MODEL = 'openai'
+# Opcional: $env:TAREFAS_AI_CHAT_MODEL = 'gpt-4o-mini'
+.\iniciar-web.ps1
+```
+
+A chave não deve ser escrita em `application.properties`, no README ou em arquivos versionados. Os arquivos `.env*` e `application-local.properties` são ignorados pelo Git. Cada solicitação à IA pode gerar cobrança pelo provedor; o projeto não faz chamadas automáticas ao abrir páginas.
 ## Funcionalidades
 
 - Login por usuário ou e-mail e cadastro de conta; senhas compatíveis com o hash PBKDF2 da versão desktop.

@@ -28,4 +28,13 @@
         <button class="botao primario" type="submit">Publicar</button></form>
     </section>
   </div>
-</main><script th:src="@{/js/app.js}"></script></body></html>
+  <section class="painel padding assistente-ia" aria-labelledby="titulo-assistente">
+    <p class="sobretitulo">SPRING AI</p><h2 id="titulo-assistente">Assistente da tarefa</h2>
+    <p class="muted">Gere um resumo ou receba sugestões de passos para esta tarefa. A resposta não altera seus dados.</p>
+    <div th:if="${iaDisponivel}" class="acoes">
+      <form th:action="@{/tarefas/{id}/assistente(id=${tarefa.id})}" method="post"><input type="hidden" name="acao" value="resumo"><button class="botao secundario" type="submit">Resumir tarefa</button></form>
+      <form th:action="@{/tarefas/{id}/assistente(id=${tarefa.id})}" method="post"><input type="hidden" name="acao" value="plano"><button class="botao primario" type="submit">Sugerir plano</button></form>
+    </div>
+    <p th:unless="${iaDisponivel}" class="muted">Configure a chave de API para ativar o assistente.</p>
+    <div th:if="${resultadoIa}" class="resultado-ia" role="status"><h3 th:text="${acaoIa}"></h3><p class="texto-longo" th:text="${resultadoIa}"></p></div>
+  </section></main><script th:src="@{/js/app.js}"></script></body></html>

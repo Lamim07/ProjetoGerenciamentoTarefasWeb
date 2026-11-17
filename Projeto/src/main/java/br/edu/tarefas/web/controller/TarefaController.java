@@ -16,9 +16,10 @@ public class TarefaController {
     private final UsuarioService usuarios;
     private final CategoriaService categorias;
     private final ComentarioService comentarios;
+    private final AssistenteIaService assistente;
     public TarefaController(TarefaService tarefas, UsuarioService usuarios,
-                            CategoriaService categorias, ComentarioService comentarios) {
-        this.tarefas = tarefas; this.usuarios = usuarios; this.categorias = categorias; this.comentarios = comentarios;
+                            CategoriaService categorias, ComentarioService comentarios, AssistenteIaService assistente) {
+        this.tarefas = tarefas; this.usuarios = usuarios; this.categorias = categorias; this.comentarios = comentarios; this.assistente = assistente;
     }
     private Long ator(Principal p) { return usuarios.atual(p.getName()).getId(); }
     @GetMapping
@@ -64,6 +65,7 @@ public class TarefaController {
         model.addAttribute("comentarios", comentarios.listar(id, atorId));
         model.addAttribute("atorId", atorId);
         model.addAttribute("statusPossiveis", StatusTarefa.values());
+        model.addAttribute("iaDisponivel", assistente.disponivel());
         return "tarefas/detalhes";
     }
     @PostMapping("/{id}/status")
