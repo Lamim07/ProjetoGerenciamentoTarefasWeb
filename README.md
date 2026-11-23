@@ -21,7 +21,7 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 
 [Avaliação dos requisitos do professor](documentacao/avaliacao-requisitos.md).
 
-## Versão com IA — branch `codex/genai`
+## Versão com IA — branch `genai`
 
 Esta branch mantém todas as funções do gerenciador de tarefas e acrescenta um assistente com Spring AI. Na tela de detalhes de uma tarefa, usuários envolvidos podem **resumir a tarefa** ou **receber um plano de execução**. As respostas aparecem na interface, não são gravadas no banco e não alteram a tarefa. O assistente recebe apenas título, descrição, prazo, prioridade e status da tarefa acessível ao usuário.
 
