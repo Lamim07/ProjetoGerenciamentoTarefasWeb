@@ -21,20 +21,20 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 
 [Avaliação dos requisitos do professor](documentacao/avaliacao-requisitos.md).
 
-## Versão com IA — branch `genai`
+## Atividade GenAI — branch `genai`
 
 Esta branch mantém todas as funções do gerenciador de tarefas e acrescenta um assistente com Spring AI. Na tela de detalhes de uma tarefa, usuários envolvidos podem **resumir a tarefa** ou **receber um plano de execução**. As respostas aparecem na interface, não são gravadas no banco e não alteram a tarefa. O assistente recebe apenas título, descrição, prazo, prioridade e status da tarefa acessível ao usuário.
 
-A aplicação continua funcionando sem chave de API; nesse caso, os botões da IA ficam indisponíveis. Para ativá-los, configure as variáveis somente no ambiente local antes de iniciar:
+A aplicação continua funcionando sem chave de API; nesse caso, os botões da IA ficam indisponíveis. Nesta máquina, dê duplo clique em `configurar-gemini.cmd` **uma única vez**, cole sua chave na janela e depois abra `iniciar-web.cmd` normalmente. A chave fica em `credenciais-gemini.dat`, protegida pela conta Windows e ignorada pelo Git. Como alternativa, configure as variáveis no PowerShell antes de iniciar:
 
 ```powershell
-$env:OPENAI_API_KEY = 'SUA_CHAVE_LOCAL'
-$env:TAREFAS_AI_MODEL = 'openai'
-# Opcional: $env:TAREFAS_AI_CHAT_MODEL = 'gpt-4o-mini'
+$env:GEMINI_API_KEY = 'SUA_CHAVE_GEMINI'
+$env:TAREFAS_AI_MODEL = 'google-genai'
+# Opcional: $env:TAREFAS_AI_CHAT_MODEL = 'gemini-2.5-flash'
 .\iniciar-web.ps1
 ```
 
-A chave não deve ser escrita em `application.properties`, no README ou em arquivos versionados. Os arquivos `.env*` e `application-local.properties` são ignorados pelo Git. Cada solicitação à IA pode gerar cobrança pelo provedor; o projeto não faz chamadas automáticas ao abrir páginas.
+A chave não deve ser escrita em `application.properties`, no README ou em arquivos versionados. Os arquivos `credenciais*`, `.env*` e `application-local.properties` são ignorados pelo Git. Use uma chave de projeto na faixa gratuita do Gemini para evitar cobrança por chamadas dentro dos limites gratuitos. Os dois projetos que compartilham a chave também compartilham a cota. O projeto não faz chamadas automáticas ao abrir páginas.
 ## Funcionalidades
 
 - Login por usuário ou e-mail e cadastro de conta; senhas compatíveis com o hash PBKDF2 da versão desktop.

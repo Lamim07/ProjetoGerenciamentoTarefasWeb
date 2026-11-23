@@ -19,10 +19,19 @@ class AssistenteIaServiceTest {
     }
 
     @Test
+    void geminiComChaveFicaDisponivel() {
+        TarefaService tarefas = mock(TarefaService.class);
+        @SuppressWarnings("unchecked") ObjectProvider<ChatClient.Builder> builders = mock(ObjectProvider.class);
+        when(builders.getIfAvailable()).thenReturn(mock(ChatClient.Builder.class));
+        AssistenteIaService service = new AssistenteIaService(tarefas, builders, "google-genai", "chave-teste");
+        assertTrue(service.disponivel());
+    }
+
+    @Test
     void acaoDesconhecidaEhRejeitada() {
         TarefaService tarefas = mock(TarefaService.class);
         @SuppressWarnings("unchecked") ObjectProvider<ChatClient.Builder> builders = mock(ObjectProvider.class);
-        AssistenteIaService service = new AssistenteIaService(tarefas, builders, "openai", "chave-teste");
+        AssistenteIaService service = new AssistenteIaService(tarefas, builders, "google-genai", "chave-teste");
         assertThrows(RegraException.class, () -> service.gerar(7L, 2L, "outra"));
         verifyNoInteractions(tarefas, builders);
     }

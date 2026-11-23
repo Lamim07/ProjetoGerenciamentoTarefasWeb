@@ -15,7 +15,7 @@ public class AssistenteIaService {
 
     public AssistenteIaService(TarefaService tarefas, ObjectProvider<ChatClient.Builder> builders,
             @Value("${TAREFAS_AI_MODEL:none}") String modelo,
-            @Value("${OPENAI_API_KEY:}") String chave) {
+            @Value("${GEMINI_API_KEY:}") String chave) {
         this.tarefas = tarefas;
         this.builders = builders;
         this.modelo = modelo;
@@ -23,14 +23,14 @@ public class AssistenteIaService {
     }
 
     public boolean disponivel() {
-        return "openai".equalsIgnoreCase(modelo) && !chave.isBlank() && builders.getIfAvailable() != null;
+        return "google-genai".equalsIgnoreCase(modelo) && !chave.isBlank() && builders.getIfAvailable() != null;
     }
 
     public String gerar(Long tarefaId, Long usuarioId, String acao) {
         if (!"resumo".equals(acao) && !"plano".equals(acao))
             throw new RegraException("Ação de IA inválida.");
         if (!disponivel())
-            throw new RegraException("A IA não está configurada. Defina OPENAI_API_KEY e TAREFAS_AI_MODEL=openai.");
+            throw new RegraException("A IA não está configurada. Defina GEMINI_API_KEY e TAREFAS_AI_MODEL=google-genai.");
         Tarefa tarefa = tarefas.buscar(tarefaId, usuarioId);
         String instrucao = "resumo".equals(acao)
             ? "Resuma a tarefa em até 100 palavras. Destaque objetivo, prazo e estado atual. Não invente informações."
