@@ -30,3 +30,5 @@ p{line-height:1.5}
 @media(max-width:560px){.topo{height:auto;min-height:68px;flex-wrap:wrap;gap:0;justify-content:space-between}.topo nav{order:3;width:100%;flex-basis:100%;justify-content:space-between}.topo nav a{padding:13px 2px}.cabecalho-pagina{display:block}.cabecalho-pagina .botao{margin-top:18px}.duas-colunas{grid-template-columns:1fr}.padding{padding:20px}.metadados{grid-template-columns:1fr 1fr}}
 
 .assistente-ia{margin-top:22px}.assistente-ia .acoes form{display:inline}.resultado-ia{margin-top:22px;padding:18px;border:1px solid #c9d8f4;border-radius:8px;background:#f6f9ff}.resultado-ia h3{margin:0 0 8px}.resultado-ia p{margin:0}
+
+.assistente-cadastro{border:1px solid #c9d8f4;background:#f6f9ff;border-radius:8px;padding:18px}.assistente-cadastro p{margin:6px 0 12px}.assistente-cadastro [data-ia-status]{margin:12px 0 0}.assistente-cadastro button:disabled{opacity:.55;cursor:wait}

@@ -43,6 +43,7 @@ public class TarefaController {
         model.addAttribute("usuarios", usuarios.listar());
         model.addAttribute("categorias", categorias.listar());
         model.addAttribute("prioridades", PrioridadeTarefa.values());
+        model.addAttribute("iaDisponivel", assistente.disponivel());
     }
     @PostMapping("/salvar")
     String salvar(@RequestParam(required = false) Long id, @RequestParam String titulo, @RequestParam String descricao,

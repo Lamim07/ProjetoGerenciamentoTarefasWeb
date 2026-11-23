@@ -4,6 +4,11 @@ import br.edu.tarefas.web.service.AssistenteIaService;
 import br.edu.tarefas.web.service.UsuarioService;
 import br.edu.tarefas.web.service.RegraException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Map;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,4 +36,25 @@ public class AssistenteIaController {
         }
         return "redirect:/tarefas/" + id;
     }
-}
+    @PostMapping("/tarefas/assistente/descricao")
+    @ResponseBody
+    ResponseEntity<Map<String, String>> sugerirDescricao(@RequestParam String titulo,
+            @RequestParam(required = false) String descricao) {
+        try {
+            return ResponseEntity.ok(Map.of("valor", assistente.sugerirDescricao(titulo, descricao)));
+        } catch (RegraException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/tarefas/assistente/prioridade")
+    @ResponseBody
+    ResponseEntity<Map<String, String>> sugerirPrioridade(@RequestParam String titulo,
+            @RequestParam(required = false) String descricao,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate prazo) {
+        try {
+            return ResponseEntity.ok(Map.of("valor", assistente.sugerirPrioridade(titulo, descricao, prazo).name()));
+        } catch (RegraException e) {
+            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+        }
+    }}

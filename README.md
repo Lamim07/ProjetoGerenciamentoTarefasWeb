@@ -23,7 +23,7 @@ Sistema acadêmico em **Java 17, Spring Boot, Spring MVC, Thymeleaf, Spring Data
 
 ## Atividade GenAI — branch `genai`
 
-Esta branch mantém todas as funções do gerenciador de tarefas e acrescenta um assistente com Spring AI. Na tela de detalhes de uma tarefa, usuários envolvidos podem **resumir a tarefa** ou **receber um plano de execução**. As respostas aparecem na interface, não são gravadas no banco e não alteram a tarefa. O assistente recebe apenas título, descrição, prazo, prioridade e status da tarefa acessível ao usuário.
+Esta branch mantém todas as funções do gerenciador de tarefas e acrescenta um assistente com Spring AI. Na tela de detalhes de uma tarefa, usuários envolvidos podem **resumir a tarefa** ou **receber um plano de execução**. No formulário de **nova tarefa**, o Gemini pode **gerar uma descrição** a partir do título e do rascunho ou **sugerir a prioridade** conforme título, descrição e prazo. As sugestões preenchem campos editáveis e só entram no banco após revisão e clique em Salvar tarefa. O assistente de detalhes recebe apenas título, descrição, prazo, prioridade e status da tarefa acessível ao usuário.
 
 A aplicação continua funcionando sem chave de API; nesse caso, os botões da IA ficam indisponíveis. Nesta máquina, dê duplo clique em `configurar-gemini.cmd` **uma única vez**, cole sua chave na janela e depois abra `iniciar-web.cmd` normalmente. A chave fica em `credenciais-gemini.dat`, protegida pela conta Windows e ignorada pelo Git. Como alternativa, configure as variáveis no PowerShell antes de iniciar:
 
